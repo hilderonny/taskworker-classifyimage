@@ -2,50 +2,50 @@
 
 Worker for taskbridge which can handle tasks of type `classifyimage`.
 
-## Task format
+## Result format
+
+When calling the TaskBridge `/api/tasks/complete/:id` API, the following JSON structure is sent to the endpoint.
 
 ```json
 {
-    ...
-    "type" : "classifyimage",
-    "worker" : "ROG",
-    "file" : "123456789",
-    "data": {
-        "numberofpredictions" : 2,
-        "targetlanguage" : "de"
-    },
-    ...
-    "result" : {
-        "predictions" : [
-            {
-                "class" : "n02066245",
-                "name" : "Grauwal",
-                "probability": 75.4
-            },
-            {
-                "class" : "n02423022",
-                "name" : "Gazelle",
-                "probability": 32.8
-            }
-        ],
-        "duration" : 12,
-        "repository" : "https://github.com/hilderonny/taskworker-classifyimage",
-        "version" : "1.0.0",
-        "library" : "tensorflow-2.17.0",
-        "model" : "mobilenetv3large_model.keras"
-    }
+  "result" : {
+    "predictions": [
+      {
+        "class": "n02123394",
+        "name": "Perserkatze",
+        "probability": 0.8419579267501831
+      },
+      {
+        "class": "n02328150",
+        "name": "Angorakatze",
+        "probability": 0.025817258283495903
+      },
+      {
+        "class": "n02124075",
+        "name": "Aegyptische Katze",
+        "probability": 0.0048589943908154964
+      }
+    ],
+    "duration" : 1.6,
+    "repository" : "https://github.com/hilderonny/taskworker-imageclassifier",
+    "version": "1.0.0",
+    "library": "tensorflow-2.17.0",
+    "model": "MobileNetV3Large"
+  }
 }
 ```
 
-The `type` must be `classifyimage`.
-
-`worker` contains the unique name of the worker.
-
-The worker expects a `file` property defining the filename which contains the image to classify.
-
-In the `data` property you need to define the `targetlanguage` (`en` or `de`). The names of the returned classes will be written in this language. Additionally you need to define in `numberofpredictions`, how many predictions (the best ones) you want to get in return.
-
-When the worker finishes the task, it sends back a `result` property. This property is an object. It contains an array `predictions`. The array size depends on the previosly defined number of predictions. Each element contains a `class` property. This is one of the classes defined in [ILSVRC2011](https://image-net.org/challenges/LSVRC/2012/browse-synsets). The `name`property contains the name of the class in the target language defined before. The `probability` property contains the probability of the detection between 0 and 100.
+|Property|Description|
+|---|---|
+|`predictions`|Array of predictions. Number of entries depends on `numberofpredictions` property in request|
+|`predictions.class`|Class identifier as defined in [ILSVRC2011](https://image-net.org/challenges/LSVRC/2012/browse-synsets)|
+|`predictions.name`|Name of the class in the language defined in request|
+|`predictions.probability`|Probability of the class in a range between 0 (0%) and 1 (100%)|
+|`duration`|Time in seconds for the processing|
+|`repository`|Source code repository of the worker|
+|`version`|Version of the worker|
+|`library`|Library used to perform image classification|
+|`model`|AI model used for image classification|
 
 ## Installation
 
