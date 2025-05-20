@@ -1,6 +1,6 @@
 # taskworker-classifyimage
 
-Worker for taskbridge which can handle tasks of type `classifyimage`.
+Worker for [taskbridge](https://github.com/hilderonny/taskbridge) which can handle tasks of type `classifyimage`.
 
 ## Result format
 
