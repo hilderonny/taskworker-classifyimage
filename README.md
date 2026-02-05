@@ -1,5 +1,7 @@
 # taskworker-classifyimage
 
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/hilderonny/taskworker-classifyimage)
+
 Worker for [taskbridge](https://github.com/hilderonny/taskbridge) which can handle tasks of type `classifyimage`.
 
 ## Result format
